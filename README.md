@@ -8,7 +8,7 @@ The following library of code supposed to be used & installed :
 2. Currently the code run on windows 64-bit platform; however, as far as this code using only standard libraries of Python, nothing prevents you to run it successfully in Linux and OS2. You may have to change minor setting for environmental variable as needed for setting up the requirement software which will be mentioned later in this document.
 ### Software & other conditions
 1. python: at least 3.x - currently, the tool was tested with 3.11. This is the crucial. Python is installed "as is" without any modifying its configuration. So, if you set it in your way then please take notes of what changes to adapt for the code to works
-2. tessaract-ocr: at lease version 5.x - currently, the code run on 5.3 with all of it dependcy. You can see it by issue "tesseract --version". Please install full binary/self-compiled version.
+2. tessaract-ocr: at least version 5.x - currently, the code run on 5.3 with all of it dependcy. You can see it by issue "tesseract --version". Please install full binary/self-compiled version.
 Remember, there are some environmental variables you may have to set. The most important ones are:
 * Set the `path` value to tessaract-ocr. in my case it is `C:\Program Files\Tesseract-OCR` (please check where your actual tesseract binary actually located)
 * Set a new variable named as "TESSDATA_PREFIX" and its value is the path to Tessadata (`C:\Program Files\Tesseract-OCR\tessdata`).
