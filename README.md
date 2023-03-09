@@ -34,47 +34,49 @@ This is python, a script. All you may want to do is go to the directory where th
 ### Command Line Arguments:
 
 ```
-usage: C:\Users\langd\AppData\Local\Programs\Python\Python311\python.exe [option] ... [-c cmd | -m mod | file | -] [arg] ...
-Options (and corresponding environment variables):
--b     : issue warnings about str(bytes_instance), str(bytearray_instance)
-         and comparing bytes/bytearray with str. (-bb: issue errors)
--B     : don't write .pyc files on import; also PYTHONDONTWRITEBYTECODE=x
--c cmd : program passed in as string (terminates option list)
--d     : turn on parser debugging output (for experts only, only works on
-         debug builds); also PYTHONDEBUG=x
--E     : ignore PYTHON* environment variables (such as PYTHONPATH)
--h     : print this help message and exit (also -? or --help)
--i     : inspect interactively after running script; forces a prompt even
-         if stdin does not appear to be a terminal; also PYTHONINSPECT=x
--I     : isolate Python from the user's environment (implies -E and -s)
--m mod : run library module as a script (terminates option list)
--O     : remove assert and __debug__-dependent statements; add .opt-1 before
-         .pyc extension; also PYTHONOPTIMIZE=x
--OO    : do -O changes and also discard docstrings; add .opt-2 before
-         .pyc extension
--P     : don't prepend a potentially unsafe path to sys.path
--q     : don't print version and copyright messages on interactive startup
--s     : don't add user site directory to sys.path; also PYTHONNOUSERSITE
--S     : don't imply 'import site' on initialization
--u     : force the stdout and stderr streams to be unbuffered;
-         this option has no effect on stdin; also PYTHONUNBUFFERED=x
--v     : verbose (trace import statements); also PYTHONVERBOSE=x
-         can be supplied multiple times to increase verbosity
--V     : print the Python version number and exit (also --version)
-         when given twice, print more information about the build
--W arg : warning control; arg is action:message:category:module:lineno
-         also PYTHONWARNINGS=arg
--x     : skip first line of source, allowing use of non-Unix forms of #!cmd
--X opt : set implementation-specific option
---check-hash-based-pycs always|default|never:
-         control how Python invalidates hash-based .pyc files
---help-env      : print help about Python environment variables and exit
---help-xoptions : print help about implementation-specific -X options and exit
---help-all      : print complete help information and exit
-Arguments:
-file   : program read from script file
--      : program read from stdin (default; interactive mode if a tty)
-arg ...: arguments passed to program in sys.argv[1:]
+usage: pdf_util.py [-h] -c CMD [-p PDF] [-o OUT] [-ep EXTRACT_PAGES] [-if IMAGE_FORMAT] [-ip IMAGE_PAGES] [-is IMAGE_SCALE] [-mf MERGE_FILES]
+                   [-ol OCR_LANG] [-om OCR_PSM] [-op OCR_PAGES] [-or OCR_RECT] [-ot OCR_RECTTYPE] [-pf TO_PDFS] [-pwd ECRYPT_PWD]
+                   [-ra ROTATE_ANGLE] [-rp ROTATE_PAGES] [-sp SPLIT_PAGES]
+
+options:
+  -h, --help            show this help message and exit
+  -c CMD, --cmd CMD     command :extract (pages from a pdf), encrypt (set password for a pdf)image (convert pages from pdf to images), merge       
+                        (pdfs to single pdf), ocr (read text form pages of a pdf), pdf (convert images to a pdf), rotate (pages within a pdf),     
+                        split (a pdf to many pdfs),
+  -p PDF, --pdf PDF     path to input pdf file
+  -o OUT, --out OUT     path to output file(s)/directory
+  -ep EXTRACT_PAGES, --extract_pages EXTRACT_PAGES
+                        page numbers for the extraction (e.g. '-c extract -ep 3,5-8,10')
+  -if IMAGE_FORMAT, --image_format IMAGE_FORMAT
+                        the format for the images default 'png' (e.g. '-c image -ip 3,5-8 -if jpg')
+  -ip IMAGE_PAGES, --image_pages IMAGE_PAGES
+                        page numbers of the pdf for the extracted images (e.g. '-c image -ip 3,5-8,10 ['all'])
+  -is IMAGE_SCALE, --image_scale IMAGE_SCALE
+                        the scale factor for the images default 1.0 (e.g. '-c image -ip 3,5-8 -is 2.2')
+  -mf MERGE_FILES, --merge_files MERGE_FILES
+                        source pdf files to be merged (e.g. '-c merge -mf file1.pdf,file2.pdf')
+  -ol OCR_LANG, --ocr_lang OCR_LANG
+                        optional: language for OCR'ing -- default 'eng'
+  -om OCR_PSM, --ocr_psm OCR_PSM
+                        optional: PSM mode -- default auto. For Tibetan use psm 6
+  -op OCR_PAGES, --ocr_pages OCR_PAGES
+                        optional: page numbers for OCR'ing -- default 'all' (e.g. '-c ocr -op 3,5-8,10,12-15')
+  -or OCR_RECT, --ocr_rect OCR_RECT
+                        optional: rectangle area for OCR'ing: left,top,right,bottom (e.g. '-c ocr -or 5,3,600,800'). Default full page or set as   
+                        0,0,0,0
+  -ot OCR_RECTTYPE, --ocr_recttype OCR_RECTTYPE
+                        optional: rectangle area type for OCR'ing as coordination: ['pt'|'point'] or as percentage ['pc'|'percent'] (e.g. '-c ocr  
+                        -ot pt')
+  -pf TO_PDFS, --to_pdfs TO_PDFS
+                        source image(s) to convert to pdfs (e.g. '-c pdf -pf file1.jpg,file2.pnp')
+  -pwd ECRYPT_PWD, --ecrypt_pwd ECRYPT_PWD
+                        set password (e.g. '-c encrypt -pwd Myp@22w0rd! -p test.pdf')
+  -ra ROTATE_ANGLE, --rotate_angle ROTATE_ANGLE
+                        optional: rotation angle (e.g. '-c rotate -rp 3,6, -ra 90)
+  -rp ROTATE_PAGES, --rotate_pages ROTATE_PAGES
+                        page numbers for rotation with thin the pdf file (e.g. '-c rotate -rp 3,5-8,10,12-15')
+  -sp SPLIT_PAGES, --split_pages SPLIT_PAGES
+                        the last page numbers for the splits (e.g. '-c split -op 3,5')
 ```
 
 ### Licensing & deployment: please following exactly (or more strictly) of whatever the required libraries and software that are used in this project. I will not be responsible for any violation of use, abuse, or infringement / copyright you may encounter during using or deployment of this software code.
