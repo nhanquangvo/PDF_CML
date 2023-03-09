@@ -161,11 +161,11 @@ def ImgToPDF(flist, outdir = './'):
 # page need to convert to zero base
 def PDFToImg(filename, pages, outdir, fmt = 'png', zoom = 2.5):
     # To get better resolution
-    #zoom_x = 2.0  # horizontal zoom
-    #zoom_y = 2.0  # vertical zoom
+    #zoom_x   # horizontal zoom
+    #zoom_y   # vertical zoom
     #mat = fitz.Matrix(zoom_x, zoom_y)  # zoom factor 2 in each dimension
     mat = fitz.Matrix(zoom, zoom)
-    #path = '../data/in/'    < --- in case of convert whole directory use glob.
+    #path = '<path>/data/'    < --- in case of convert whole directory use glob.
     #all_files = glob.glob(path + "*.pdf")
     #for filename in all_files:
     doc = fitz.open(filename)  # open document
@@ -182,7 +182,6 @@ def PDFToImg(filename, pages, outdir, fmt = 'png', zoom = 2.5):
             #check/adjust max zoom 
             #pix.save("../data/out/page-%i.png" % page.number)  # store image as a PNG
             
-                            
             #Image.MAX_IMAGE_PIXELS = None
             img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
             ifile = file + str(i+1) + '.' + fmt
@@ -195,7 +194,7 @@ def PDFToImg(filename, pages, outdir, fmt = 'png', zoom = 2.5):
     return ret
             
 # PDF_OCR(args['pdf'], o_pages, args['ocr_lang'], psm, rects, args['ocr_recttype'])
-#rect = (x0, y0, x1, y1) upper left and lower right conner)
+# rect = (x0, y0, x1, y1) upper left and lower right conner)
 # type 'percent' or 'pc' will cut by percentage
 def OCR_img(imgfile, lang, psm, rect, ptype = 'pt'):
     img = Image.open(imgfile)
@@ -657,8 +656,6 @@ if __name__ == "__main__":
         help="the scale factor for the images default 1.0 (e.g. '-c image -ip 3,5-8 -is 2.2')")
     ap.add_argument("-mf", "--merge_files", 
         help="source pdf files to be merged (e.g. '-c merge -mf file1.pdf,file2.pdf')")
-    #ap.add_argument("-t", "--to", type=str, default="en",
-    #    help="language that we'll be translating to")
     ap.add_argument("-ol", "--ocr_lang", type=str, default="eng", 
         help="optional: language for OCR'ing -- default 'eng'")
     ap.add_argument("-om", "--ocr_psm", type=str, default="auto",
@@ -688,79 +685,4 @@ if __name__ == "__main__":
     # to convert python to executable
     # pyinstaller --onefile -w 'filename.py'   < - for windows app
     # pyinstaller --onefile --console 'filename.py'   < - for commandline app
-    '''
-    Pixmap Example Code Snippets
-Example 1
-
-This shows how pixmaps can be used for purely graphical, non-PDF purposes. The script reads a PNG picture and creates a new PNG file which consist of 3 * 4 tiles of the original one:
-
-import fitz
-# create a pixmap of a picture
-pix0 = fitz.Pixmap("editra.png")
-
-# set target colorspace and pixmap dimensions and create it
-tar_width  = pix0.width * 3              # 3 tiles per row
-tar_height = pix0.height * 4             # 4 tiles per column
-tar_irect  = fitz.IRect(0, 0, tar_width, tar_height)
-# create empty target pixmap
-tar_pix    = fitz.Pixmap(fitz.csRGB, tar_irect, pix0.alpha)
-# clear target with a very lively stone-gray (thanks and R.I.P., Loriot)
-tar_pix.clearWith(90)
-
-# now fill target with 3 * 4 tiles of input picture
-for i in range(4):
-    pix0.y = i * pix0.height                     # modify input's y coord
-    for j in range(3):
-        pix0.x = j * pix0.width                  # modify input's x coord
-        tar_pix.copyPixmap(pix0, pix0.irect)     # copy input to new loc
-        # save all intermediate images to show what is happening
-        fn = "target-%i-%i.png" % (i, j)
-        tar_pix.writePNG(fn)
-This is the input picture editra.png (taken from the wxPython directory /tools/Editra/pixmaps):
-
-editra
-
-Here is the output, showing some intermediate picture and the final result:
-
-target
-
-Example 2
-
-This shows how to create a PNG file from a numpy array (several times faster than most other methods):
-
-import numpy as np
-import fitz
-#==============================================================================
-# create a fun-colored width * height PNG with fitz and numpy
-#==============================================================================
-height = 150
-width  = 100
-bild = np.ndarray((height, width, 3), dtype=np.uint8)
-
-for i in range(height):
-    for j in range(width):
-        # one pixel (some fun coloring)
-        bild[i, j] = [(i+j)%256, i%256, j%256]
-
-samples = bytearray(bild.tostring())    # get plain pixel data from numpy array
-pix = fitz.Pixmap(fitz.csRGB, width, height, samples, alpha=False)
-pix.writePNG("test.png")
-Example 3
-
-This shows how to interface with PIL / Pillow (the Python Imaging Library), thereby extending the reach of image files that can be processed:
-
-import fitz
-from PIL import Image
-pix = fitz.Pixmap(...)
-...
-# create and save a PIL image
-img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-img.save(filename, 'jpeg')
-...
-# opposite direction:
-# create a pixmap from any PIL-supported image file "some_image.xxx"
-img = Image.open("some_image.xxx").convert("RGB")
-samples = img.tobytes()
-pix = fitz.Pixmap(fitz.csRGB, img.size[0], img.size[1], samples, alpha=False)
-    ''' 
     
