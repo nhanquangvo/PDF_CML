@@ -24,6 +24,12 @@ Remember, there are some environmental variables you may have to set. The most i
 * `psutil` for computer memory check. You can use to check the available of RAM to know what is going on with the large image/file problem
 * Optional: `glob` - I am not implement this library; however, for convenience of using wildcards, this is the wonderful choice
 * Optional: consider to add `pyinstaller` for conversion from python code to 64-bit binary. This will help you to speed up hugely if you want to use the tool for batching. There are some options for converting the code to executable. In this simple tool, it is kept in single code to avoid complicated binary conversion. Also, remember if you use exit(error) in python, you may consider to use positive 'error' number for exit code (experienced yourself please). Also, the argument to convert to binary also need to be know. E.g., In this code I used: `pyinstaller --onefile --console '.\pdf_util.py'`. If writing for windows option, you may replace the option --console by -w/--windows
+* Optional installing anyh IDE helper such as Code or Jupiter is good enough for this small project.
+
+### Compile:
+This is python, a script. All you may want to do is go to the directory where the code is located then issue the command: 
+
+`python ./pdf_utitl.py <command option>`
 
 ### Command Line Arguments:
 
