@@ -25,6 +25,52 @@ Remember, there are some environmental variables you may have to set. The most i
 * Optional: `glob` - I am not implement this library; however, for convenience of using wildcards, this is the wonderful choice
 * Optional: consider to add `pyinstaller` for conversion from python code to 64-bit binary. This will help you to speed up hugely if you want to use the tool for batching. There are some options for converting the code to executable. In this simple tool, it is kept in single code to avoid complicated binary conversion. Also, remember if you use exit(error) in python, you may consider to use positive 'error' number for exit code (experienced yourself please). Also, the argument to convert to binary also need to be know. E.g., In this code I used: `pyinstaller --onefile --console '.\pdf_util.py'`. If writing for windows option, you may replace the option --console by -w/--windows
 
+### Command Line Arguments:
+
+```
+usage: C:\Users\langd\AppData\Local\Programs\Python\Python311\python.exe [option] ... [-c cmd | -m mod | file | -] [arg] ...
+Options (and corresponding environment variables):
+-b     : issue warnings about str(bytes_instance), str(bytearray_instance)
+         and comparing bytes/bytearray with str. (-bb: issue errors)
+-B     : don't write .pyc files on import; also PYTHONDONTWRITEBYTECODE=x
+-c cmd : program passed in as string (terminates option list)
+-d     : turn on parser debugging output (for experts only, only works on
+         debug builds); also PYTHONDEBUG=x
+-E     : ignore PYTHON* environment variables (such as PYTHONPATH)
+-h     : print this help message and exit (also -? or --help)
+-i     : inspect interactively after running script; forces a prompt even
+         if stdin does not appear to be a terminal; also PYTHONINSPECT=x
+-I     : isolate Python from the user's environment (implies -E and -s)
+-m mod : run library module as a script (terminates option list)
+-O     : remove assert and __debug__-dependent statements; add .opt-1 before
+         .pyc extension; also PYTHONOPTIMIZE=x
+-OO    : do -O changes and also discard docstrings; add .opt-2 before
+         .pyc extension
+-P     : don't prepend a potentially unsafe path to sys.path
+-q     : don't print version and copyright messages on interactive startup
+-s     : don't add user site directory to sys.path; also PYTHONNOUSERSITE
+-S     : don't imply 'import site' on initialization
+-u     : force the stdout and stderr streams to be unbuffered;
+         this option has no effect on stdin; also PYTHONUNBUFFERED=x
+-v     : verbose (trace import statements); also PYTHONVERBOSE=x
+         can be supplied multiple times to increase verbosity
+-V     : print the Python version number and exit (also --version)
+         when given twice, print more information about the build
+-W arg : warning control; arg is action:message:category:module:lineno
+         also PYTHONWARNINGS=arg
+-x     : skip first line of source, allowing use of non-Unix forms of #!cmd
+-X opt : set implementation-specific option
+--check-hash-based-pycs always|default|never:
+         control how Python invalidates hash-based .pyc files
+--help-env      : print help about Python environment variables and exit
+--help-xoptions : print help about implementation-specific -X options and exit
+--help-all      : print complete help information and exit
+Arguments:
+file   : program read from script file
+-      : program read from stdin (default; interactive mode if a tty)
+arg ...: arguments passed to program in sys.argv[1:]
+```
+
 ### Licensing & deployment: please following exactly (or more strictly) of whatever the required libraries and software that are used in this project. I will not be responsible for any violation of use, abuse, or infringement / copyright you may encounter during using or deployment of this software code.
  
 
