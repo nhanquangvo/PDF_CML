@@ -163,7 +163,7 @@ def PDFToImg(filename, pages, outdir, fmt = 'png', zoom = 2.5):
     # To get better resolution
     #zoom_x   # horizontal zoom
     #zoom_y   # vertical zoom
-    #mat = fitz.Matrix(zoom_x, zoom_y)  # zoom factor 2 in each dimension
+    #mat = fitz.Matrix(zoom_x, zoom_y)  # zoom  in each dimension
     mat = fitz.Matrix(zoom, zoom)
     #path = '<path>/data/'    < --- in case of convert whole directory use glob.
     #all_files = glob.glob(path + "*.pdf")
@@ -179,10 +179,10 @@ def PDFToImg(filename, pages, outdir, fmt = 'png', zoom = 2.5):
     for i, page in enumerate(doc):  # iterate through the pages
         if i in pages or o_all: #based zero pages
             pix = page.get_pixmap(matrix=mat)  # render page to an image
-            #check/adjust max zoom 
-            #pix.save("../data/out/page-%i.png" % page.number)  # store image as a PNG
             
-            #Image.MAX_IMAGE_PIXELS = None
+            # set avoid exception for very larg imageś
+            if NO_CHK:
+                Image.MAX_IMAGE_PIXELS = None
             img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
             ifile = file + str(i+1) + '.' + fmt
             img.save(ifile)
@@ -215,7 +215,7 @@ def OCR_img(imgfile, lang, psm, rect, ptype = 'pt'):
     fname = TEMP+"cropped_" +os.path.basename(imgfile)[:-3] + 'png'
     img.crop(pict).save(fname)
     
-    # tesseract images/bilingual.png - -l eng+hin
+    # tesseract ./file.png - -l eng+deu
     option = f"-l {lang} --psm {psm}" 
     
     pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
@@ -232,7 +232,7 @@ def OCR_img(imgfile, lang, psm, rect, ptype = 'pt'):
     return text
     
 def PDF_OCR(fname, pages, lang, psm, rect, rtype = 'pt'):
-    text = {} # aditonary of ocr-ed text
+    text = {} # additonary of ocr-ed text
     fimgs = PDFToImg(fname, pages, TEMP, fmt = 'png', zoom = 2.5) #array of pages that are imaged.
     for fimg in fimgs:
         # decode the format name of fimg as  ifile = file + str(i+1) + '.' + fmt in PDFToImg: str(i)+1 is the page#
@@ -260,25 +260,7 @@ def PDFencrypt(infile, outfile, password):
 
     
 '''
-def OCR_Pages(fileName):
-    doc = fitz.open(fileName) # open pdf files using fitz bindings 
-
-    fullText = ''
-    for i in tqdm(range(len(doc)), desc="pages"):
-        text = ''
-        for img in tqdm(doc.get_page_images(i), desc="page_images"):
-            
-            xref = img[0]
-            image = doc.extract_image(xref)
-            pix = fitz.Pixmap(doc, xref)
-            
-            output = f"{fileName[:-4]}_{i}_{xref}.png"
-            pix.save(output) # save as png image
-            
-            #reopen and crop it before
-
-            pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
-            
+           
             #image = cv2.imread(args["image"])
             #rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             # OCR the image, supplying the country code as the language parameter
@@ -300,11 +282,6 @@ def OCR_Pages(fileName):
             option = f"-l {args['lang']} --psm {args['psm']}" 
             text = str(pytesseract.image_to_string(Image.open(output),config=option))
             print(f"Current text:'{text}'")
-
-        fullText += text
-
-    fullText = fullText.splitlines() # or do something here to extract information using regex
-    return fullText
 '''
 
 def chkarg(args, arg, opts):
