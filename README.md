@@ -1,5 +1,5 @@
 # PDF_CML
-Fully free command line executable including split, merge, rotate, extract pages, images to pdf, pdf to images, ocr, and encrypt a pdf. This freeware code is very simple code. You can use it for further learning.
+Fully free command line executable including _ _split, merge, rotate, extract pages, images to pdf, pdf to images, ocr, and encrypt a pdf. This code is very simple. You can use it for further learning_ _.
 
 ## Requirements & limitation:
 The following library of code supposed to be used & installed :
